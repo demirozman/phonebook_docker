@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD = P123456p
+      MYSQL_DATABASE_PORT = 3306
+      MYSQL_DATABASE_USER = 'dmr'
+      MYSQL_DATABASE_PASSWORD = 'P1234567-8'
+    networks:
+      - dmr-net
+  myapp:
+    build: .
+    #image: olivercw/bookstoreapi:latest
+    container_name: myapp
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "80:80"
+    networks:
+      - dmr-net
+networks:
+  dmr-net:
